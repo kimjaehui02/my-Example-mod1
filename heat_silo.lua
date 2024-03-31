@@ -38,9 +38,23 @@ function make_heat_pipe_pictures(path, name_prefix, data, draw_as_glow)
   return all_pictures
 end
 
+-- 기존 엔티티의 정의를 가져옵니다.
+local heat_pipe_entity = data.raw["heat-pipe"]["heat-pipe"]
+
+-- fast_replaceable_group 필드를 추가합니다.
+heat_pipe_entity.fast_replaceable_group = "heat-pipe"
+
+
+
+
 data:extend
 (
   {
+--          축열기들 시작-----------------------------------------------
+--          축열기들 끝-----------------------------------------------
+
+
+    heat_pipe_entity,
     {
       type = "item",
       name = "scrap-pipe",
@@ -58,7 +72,7 @@ data:extend
       icon_size = 64, icon_mipmaps = 4,
       energy_required = 1,
       enabled = true,
-      ingredients = {{"steel-plate", 10}, {"copper-plate", 20}},
+      ingredients = {{"scrap-ore", 20}, {"copper-cable", 10}},
       result = "scrap-pipe"
     },
 
@@ -77,12 +91,14 @@ data:extend
 {
   type = "heat-pipe",
   name = "scrap-pipe",
-  icon = "__base__/graphics/icons/heat-pipe.png",
+  icon = "__my Example-mod1__/graphics/entity/scrap-pipe/heat-pipe.png",
   icon_size = 64, icon_mipmaps = 4,
   flags = {"placeable-neutral", "player-creation"},
   minable = {mining_time = 0.1, result = "scrap-pipe"},
   max_health = 200,
   corpse = "heat-pipe-remnants",
+  fast_replaceable_group = "heat-pipe",
+  next_upgrade = "heat-pipe",
   dying_explosion = "heat-pipe-explosion",
   random_corpse_variation = true,
   working_sound =
@@ -120,10 +136,10 @@ data:extend
   damaged_trigger_effect = hit_effects.entity(),
   heat_buffer =
   {
-    max_temperature = 1000,
+    max_temperature = 300,
     specific_heat = "1MJ",
-    max_transfer = "1GW",
-    minimum_glow_temperature = 350,
+    max_transfer = "0.5GW",
+    minimum_glow_temperature = 100,
     connections =
     {
       {
@@ -145,7 +161,7 @@ data:extend
     }
   },
 
-  connection_sprites = make_heat_pipe_pictures("__base__/graphics/entity/heat-pipe/", "heat-pipe",
+  connection_sprites = make_heat_pipe_pictures("__my Example-mod1__/graphics/entity/scrap-pipe/entitiy/2/", "heat-pipe",
   {
     single = { name = "straight-vertical-single", ommit_number = true },
     straight_vertical = { variations = 6 },
