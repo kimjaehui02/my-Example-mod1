@@ -4,6 +4,144 @@ local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 require ("__base__.prototypes.entity.pipecovers")
 
+-- 축전지 관리
+
+
+function accumulator_picture(tint, repeat_count)
+  return
+  {
+    layers =
+    {
+      {
+        filename = "__base__/graphics/entity/accumulator/accumulator.png",
+        priority = "high",
+        width = 66,
+        height = 94,
+        repeat_count = repeat_count,
+        shift = util.by_pixel(0, -10),
+        tint = tint,
+        animation_speed = 0.5,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/accumulator/hr-accumulator.png",
+          priority = "high",
+          width = 130,
+          height = 189,
+          repeat_count = repeat_count,
+          shift = util.by_pixel(0, -11),
+          tint = tint,
+          animation_speed = 0.5,
+          scale = 0.5
+        }
+      },
+      {
+        filename = "__base__/graphics/entity/accumulator/accumulator-shadow.png",
+        priority = "high",
+        width = 120,
+        height = 54,
+        repeat_count = repeat_count,
+        shift = util.by_pixel(28, 6),
+        draw_as_shadow = true,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/accumulator/hr-accumulator-shadow.png",
+          priority = "high",
+          width = 234,
+          height = 106,
+          repeat_count = repeat_count,
+          shift = util.by_pixel(29, 6),
+          draw_as_shadow = true,
+          scale = 0.5
+        }
+      }
+    }
+  }
+end
+
+function accumulator_charge()
+  return
+  {
+    layers =
+    {
+      accumulator_picture({ r=1, g=1, b=1, a=1 } , 24),
+      {
+        filename = "__base__/graphics/entity/accumulator/accumulator-charge.png",
+        priority = "high",
+        width = 90,
+        height = 100,
+        line_length = 6,
+        frame_count = 24,
+        draw_as_glow = true,
+        shift = util.by_pixel(0, -22),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/accumulator/hr-accumulator-charge.png",
+          priority = "high",
+          width = 178,
+          height = 206,
+          line_length = 6,
+          frame_count = 24,
+          draw_as_glow = true,
+          shift = util.by_pixel(0, -22),
+          scale = 0.5
+        }
+      }
+    }
+  }
+end
+
+function accumulator_reflection()
+  return
+  {
+    pictures =
+      {
+        filename = "__base__/graphics/entity/accumulator/accumulator-reflection.png",
+        priority = "extra-high",
+        width = 20,
+        height = 24,
+        shift = util.by_pixel(0, 50),
+        variation_count = 1,
+        scale = 5
+      },
+      rotate = false,
+      orientation_to_variation = false
+  }
+end
+
+function accumulator_discharge()
+  return
+  {
+    layers =
+    {
+      accumulator_picture({ r=1, g=1, b=1, a=1 } , 24),
+      {
+        filename = "__base__/graphics/entity/accumulator/accumulator-discharge.png",
+        priority = "high",
+        width = 88,
+        height = 104,
+        line_length = 6,
+        frame_count = 24,
+        draw_as_glow = true,
+        shift = util.by_pixel(-2, -22),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/accumulator/hr-accumulator-discharge.png",
+          priority = "high",
+          width = 170,
+          height = 210,
+          line_length = 6,
+          frame_count = 24,
+          draw_as_glow = true,
+          shift = util.by_pixel(-1, -23),
+          scale = 0.5
+        }
+      }
+    }
+  }
+end
+
+-- 축전지 끝
+
 function make_heat_pipe_pictures(path, name_prefix, data, draw_as_glow)
   local all_pictures = {}
   local func = draw_as_glow and apply_heat_pipe_glow or function(t) return t end
@@ -51,6 +189,89 @@ data:extend
 (
   {
 --          축열기들 시작-----------------------------------------------
+{
+  type = "item",
+  name = "heat-accumulator",
+  icon = "__base__/graphics/icons/accumulator.png",
+  icon_size = 64, icon_mipmaps = 4,
+  subgroup = "energy",
+  order = "e[accumulator]-a[accumulator]",
+  place_result = "heat-accumulator",
+  stack_size = 50
+},
+{
+  type = "recipe",
+  name = "heat-accumulator",
+  energy_required = 10,
+  enabled = true,
+  ingredients =
+  {
+    {"iron-plate", 2},
+    {"battery", 5}
+  },
+  result = "heat-accumulator"
+},
+{
+  type = "accumulator",
+  name = "heat-accumulator",
+  icon = "__base__/graphics/icons/accumulator.png",
+  icon_size = 64, icon_mipmaps = 4,
+  flags = {"placeable-neutral", "player-creation"},
+  minable = {mining_time = 0.1, result = "heat-accumulator"},
+  max_health = 150,
+  corpse = "accumulator-remnants",
+  dying_explosion = "accumulator-explosion",
+  collision_box = {{-0.9, -0.9}, {0.9, 0.9}},
+  selection_box = {{-1, -1}, {1, 1}},
+  damaged_trigger_effect = hit_effects.entity(),
+  drawing_box = {{-1, -1.5}, {1, 1}},
+  energy_source =
+  {
+    type = "electric",
+    buffer_capacity = "5MJ",
+    usage_priority = "tertiary",
+    input_flow_limit = "300kW",
+    output_flow_limit = "300kW"
+  },
+  picture = accumulator_picture(),
+  charge_animation = accumulator_charge(),
+  water_reflection = accumulator_reflection(),
+
+  charge_cooldown = 30,
+  --charge_light = {intensity = 0.3, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
+  discharge_animation = accumulator_discharge(),
+  discharge_cooldown = 60,
+  --discharge_light = {intensity = 0.7, size = 7, color = {r = 1.0, g = 1.0, b = 1.0}},
+  vehicle_impact_sound = sounds.generic_impact,
+  open_sound = sounds.machine_open,
+  close_sound = sounds.machine_close,
+  working_sound =
+  {
+    sound =
+    {
+      filename = "__base__/sound/accumulator-working.ogg",
+      volume = 0.4
+    },
+    idle_sound =
+    {
+      filename = "__base__/sound/accumulator-idle.ogg",
+      volume = 0.35
+    },
+    --persistent = true,
+    max_sounds_per_type = 3,
+    audible_distance_modifier = 0.5,
+    fade_in_ticks = 4,
+    fade_out_ticks = 20
+  },
+
+  circuit_wire_connection_point = circuit_connector_definitions["accumulator"].points,
+  circuit_connector_sprites = circuit_connector_definitions["accumulator"].sprites,
+  circuit_wire_max_distance = default_circuit_wire_max_distance,
+
+  default_output_signal = {type = "virtual", name = "signal-A"}
+},
+
+
 --          축열기들 끝-----------------------------------------------
 
 
