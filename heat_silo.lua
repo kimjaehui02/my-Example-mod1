@@ -54,7 +54,7 @@ data:extend
     {
       type = "recipe",
       name = "scrap-pipe",
-      icon = "__base__/graphics/icons/nuclear-fuel-reprocessing.png",
+      icon = "__my Example-mod1__/graphics/entity/scrap-pipe/heat-pipe.png",
       icon_size = 64, icon_mipmaps = 4,
       energy_required = 1,
       enabled = true,
@@ -361,7 +361,7 @@ data:extend
 
     heat_buffer =
     {
-      max_temperature = 1000,
+      max_temperature = 10000,
       specific_heat = "10MJ",
       max_transfer = "10GW",
       minimum_glow_temperature = 350,
