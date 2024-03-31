@@ -189,9 +189,344 @@ data:extend
 (
   {
 --          축열기들 시작-----------------------------------------------
+{
+  type = "item",
+  name = "hear-assembling-machine",
+  icon = "__base__/graphics/icons/assembling-machine-1.png",
+  icon_size = 64, icon_mipmaps = 4,
+  subgroup = "production-machine",
+  order = "a[assembling-machine-1]",
+  place_result = "hear-assembling-machine",
+  stack_size = 50
+},
+{
+  type = "recipe",
+  name = "hear-assembling-machine",
+  enabled = true,
+  ingredients =
+  {
+    {"electronic-circuit", 3},
+    {"iron-gear-wheel", 5},
+    {"iron-plate", 9}
+  },
+  result = "hear-assembling-machine"
+},
+{
+  type = "assembling-machine",
+  name = "hear-assembling-machine",
+  icon = "__base__/graphics/icons/assembling-machine-1.png",
+  icon_size = 64, icon_mipmaps = 4,
+  flags = {"placeable-neutral", "placeable-player", "player-creation"},
+  minable = {mining_time = 0.2, result = "hear-assembling-machine"},
+  max_health = 300,
+  corpse = "assembling-machine-1-remnants",
+  dying_explosion = "assembling-machine-1-explosion",
+  resistances =
+  {
+    {
+      type = "fire",
+      percent = 70
+    }
+  },
+  collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
+  selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
+  damaged_trigger_effect = hit_effects.entity(),
+  fast_replaceable_group = "assembling-machine",
+  next_upgrade = "assembling-machine-2",
+  alert_icon_shift = util.by_pixel(-3, -12),
+  animation =
+  {
+    layers =
+    {
+      {
+        filename = "__base__/graphics/entity/assembling-machine-1/assembling-machine-1.png",
+        priority="high",
+        width = 108,
+        height = 114,
+        frame_count = 32,
+        line_length = 8,
+        shift = util.by_pixel(0, 2),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/assembling-machine-1/hr-assembling-machine-1.png",
+          priority="high",
+          width = 214,
+          height = 226,
+          frame_count = 32,
+          line_length = 8,
+          shift = util.by_pixel(0, 2),
+          scale = 0.5
+        }
+      },
+      {
+        filename = "__base__/graphics/entity/assembling-machine-1/assembling-machine-1-shadow.png",
+        priority="high",
+        width = 95,
+        height = 83,
+        frame_count = 1,
+        line_length = 1,
+        repeat_count = 32,
+        draw_as_shadow = true,
+        shift = util.by_pixel(8.5, 5.5),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/assembling-machine-1/hr-assembling-machine-1-shadow.png",
+          priority="high",
+          width = 190,
+          height = 165,
+          frame_count = 1,
+          line_length = 1,
+          repeat_count = 32,
+          draw_as_shadow = true,
+          shift = util.by_pixel(8.5, 5),
+          scale = 0.5
+        }
+      }
+    }
+  },
+  crafting_categories = {"crafting", "basic-crafting", "advanced-crafting"},
+  crafting_speed = 0.5,
+  heat_buffer =
+  {
+    max_temperature = 1000,
+    specific_heat = "10MJ",
+    max_transfer = "10GW",
+    minimum_glow_temperature = 350,
+    connections =
+    {
+      {
+        position = {-2, -2},
+        direction = defines.direction.north
+      },
+      {
+        position = {0, -2},
+        direction = defines.direction.north
+      },
+      {
+        position = {2, -2},
+        direction = defines.direction.north
+      },
+      {
+        position = {2, -2},
+        direction = defines.direction.east
+      },
+      {
+        position = {2, 0},
+        direction = defines.direction.east
+      },
+      {
+        position = {2, 2},
+        direction = defines.direction.east
+      },
+      {
+        position = {2, 2},
+        direction = defines.direction.south
+      },
+      {
+        position = {0, 2},
+        direction = defines.direction.south
+      },
+      {
+        position = {-2, 2},
+        direction = defines.direction.south
+      },
+      {
+        position = {-2, 2},
+        direction = defines.direction.west
+      },
+      {
+        position = {-2, 0},
+        direction = defines.direction.west
+      },
+      {
+        position = {-2, -2},
+        direction = defines.direction.west
+      }
+    },
 
+    heat_picture = apply_heat_pipe_glow
+    {
+      filename = "__base__/graphics/entity/nuclear-reactor/reactor-heated.png",
+      width = 108,
+      height = 128,
+      shift = util.by_pixel(1, -7),
+      hr_version =
+      {
+        filename = "__base__/graphics/entity/nuclear-reactor/hr-reactor-heated.png",
+        width = 216,
+        height = 256,
+        scale = 0.5,
+        shift = util.by_pixel(3, -6.5)
+      }
+    },
+  },
 
-
+  energy_usage = "500kW",
+  energy_consumption = "10MW",
+  energy_source =
+  {
+    type = "heat",
+    max_temperature = 1000,
+    specific_heat = "1MJ",
+    max_transfer = "2GW",
+    min_working_temperature = 20,
+    minimum_glow_temperature = 350,
+    connections =
+    {
+      {
+        position = { -1, -1 },
+        direction = defines.direction.north,
+      },
+      {
+        position = { 1, -1 },
+        direction = defines.direction.north,
+      },
+      {
+        position = { 1, -1 },
+        direction = defines.direction.east,
+      },
+      {
+        position = { 1, 1 },
+        direction = defines.direction.east,
+      },
+      {
+        position = { 1, 1 },
+        direction = defines.direction.south,
+      },
+      {
+        position = { -1, 1 },
+        direction = defines.direction.south,
+      },
+      {
+        position = { -1, 1 },
+        direction = defines.direction.west,
+      },
+      {
+        position = { -1, -1 },
+        direction = defines.direction.west,
+      },
+    },
+    pipe_covers =
+      make_4way_animation_from_spritesheet(
+      {
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-endings.png",
+        width = 32,
+        height = 32,
+        direction_count = 4,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-endings.png",
+          width = 64,
+          height = 64,
+          direction_count = 4,
+          scale = 0.5
+        }
+      }),
+    heat_pipe_covers =
+      make_4way_animation_from_spritesheet(
+      apply_heat_pipe_glow{
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-endings-heated.png",
+        width = 32,
+        height = 32,
+        direction_count = 4,
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-endings-heated.png",
+          width = 64,
+          height = 64,
+          direction_count = 4,
+          scale = 0.5
+        }
+      }),
+    heat_picture =
+    {
+      north = apply_heat_pipe_glow
+      {
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-N-heated.png",
+        priority = "extra-high",
+        width = 24,
+        height = 48,
+        shift = util.by_pixel(-1, 8),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-N-heated.png",
+          priority = "extra-high",
+          width = 44,
+          height = 96,
+          shift = util.by_pixel(-0.5, 8.5),
+          scale = 0.5
+        }
+      },
+      east = apply_heat_pipe_glow
+      {
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-E-heated.png",
+        priority = "extra-high",
+        width = 40,
+        height = 40,
+        shift = util.by_pixel(-21, -13),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-E-heated.png",
+          priority = "extra-high",
+          width = 80,
+          height = 80,
+          shift = util.by_pixel(-21, -13),
+          scale = 0.5
+        }
+      },
+      south = apply_heat_pipe_glow
+      {
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-S-heated.png",
+        priority = "extra-high",
+        width = 16,
+        height = 20,
+        shift = util.by_pixel(-1, -30),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-S-heated.png",
+          priority = "extra-high",
+          width = 28,
+          height = 40,
+          shift = util.by_pixel(-1, -30),
+          scale = 0.5
+        }
+      },
+      west = apply_heat_pipe_glow
+      {
+        filename = "__base__/graphics/entity/heat-exchanger/heatex-W-heated.png",
+        priority = "extra-high",
+        width = 32,
+        height = 40,
+        shift = util.by_pixel(23, -13),
+        hr_version =
+        {
+          filename = "__base__/graphics/entity/heat-exchanger/hr-heatex-W-heated.png",
+          priority = "extra-high",
+          width = 64,
+          height = 76,
+          shift = util.by_pixel(23, -13),
+          scale = 0.5
+        }
+      }
+    }
+  },
+  open_sound = sounds.machine_open,
+  close_sound = sounds.machine_close,
+  vehicle_impact_sound = sounds.generic_impact,
+  working_sound =
+  {
+    sound =
+    {
+      {
+        filename = "__base__/sound/assembling-machine-t1-1.ogg",
+        volume = 0.5
+      }
+    },
+    audible_distance_modifier = 0.5,
+    fade_in_ticks = 4,
+    fade_out_ticks = 20
+  }
+},
 --          축열기들 끝-----------------------------------------------
 
 
@@ -354,12 +689,12 @@ data:extend
     icon  = "__my Example-mod1__/graphics/entity/heat-silo/rocket-silo.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "player-creation"},
-    minable = {mining_time = 0.5, result = "nuclear-reactor"},
+    minable = {mining_time = 0.5, result = "heat-reactor"},
     max_health = 500,
     corpse = "nuclear-reactor-remnants",
     dying_explosion = "nuclear-reactor-explosion",
     consumption = "40MW",
-    neighbour_bonus = 1,
+    neighbour_bonus = 0.2,
     energy_source =
     {
       type = "burner",
