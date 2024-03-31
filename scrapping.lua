@@ -58,6 +58,11 @@ local new_recipe
 
 for _, recipe in pairs(data.raw["recipe"]) do
 
+  if data.raw["item"][recipe.name or ""] or data.raw["item"][recipe.result or ""] or (recipe.results and recipe.results[1] and data.raw["item"][recipe.results[1].name or ""]) then
+    -- recipe.name, recipe.result, recipe.results[1]이 모두 nil일 때 스킵
+    goto continue
+end
+
 
   if not recipe.category or recipe.category == "crafting" or recipe.category == "advanced-crafting"  or  recipe.category == "crafting-with-fluid"  then
     local new_recipe_name = recipe.name .. "-scrapping"
@@ -212,6 +217,7 @@ for _, recipe in pairs(data.raw["recipe"]) do
   -- })
   table.insert(new_recipes, new_recipe)
 end
+::continue::
 end
 
 
