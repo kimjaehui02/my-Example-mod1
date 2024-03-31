@@ -41,9 +41,27 @@ end
 data:extend
 (
   {
+    {
+      type = "item",
+      name = "scrap-pipe",
+      icon = "__base__/graphics/icons/heat-pipe.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "energy",
+      order = "f[nuclear-energy]-b[heat-pipe]",
+      place_result = "scrap-pipe",
+      stack_size = 50
+    },
+    {
+      type = "recipe",
+      name = "scrap-pipe",
+      icon = "__base__/graphics/icons/nuclear-fuel-reprocessing.png",
+      icon_size = 64, icon_mipmaps = 4,
+      energy_required = 1,
+      enabled = true,
+      ingredients = {{"steel-plate", 10}, {"copper-plate", 20}},
+      result = "scrap-pipe"
+    },
 
-
-    
     {
         type = "item",
         name = "heat-reactor",
@@ -54,6 +72,125 @@ data:extend
         place_result = "heat-reactor",
         stack_size = 1
       },
+--  고철파이프의 시작 -----------------------------------------------------------------------------------------------------------------------------
+
+{
+  type = "heat-pipe",
+  name = "scrap-pipe",
+  icon = "__base__/graphics/icons/heat-pipe.png",
+  icon_size = 64, icon_mipmaps = 4,
+  flags = {"placeable-neutral", "player-creation"},
+  minable = {mining_time = 0.1, result = "scrap-pipe"},
+  max_health = 200,
+  corpse = "heat-pipe-remnants",
+  dying_explosion = "heat-pipe-explosion",
+  random_corpse_variation = true,
+  working_sound =
+  {
+    sound =
+    {
+      {
+        filename = "__base__/sound/heat-pipe.ogg",
+        volume = 0.4
+      }
+    },
+    match_volume_to_activity = true,
+    max_sounds_per_type = 3,
+    fade_in_ticks = 4,
+    fade_out_ticks = 20
+  },
+  vehicle_impact_sound = sounds.generic_impact,
+  resistances =
+  {
+    {
+      type = "fire",
+      percent = 90
+    },
+    {
+      type = "explosion",
+      percent = 30
+    },
+    {
+      type = "impact",
+      percent = 30
+    }
+  },
+  collision_box = {{-0.3, -0.3}, {0.3, 0.3}},
+  selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+  damaged_trigger_effect = hit_effects.entity(),
+  heat_buffer =
+  {
+    max_temperature = 1000,
+    specific_heat = "1MJ",
+    max_transfer = "1GW",
+    minimum_glow_temperature = 350,
+    connections =
+    {
+      {
+        position = {0, 0},
+        direction = defines.direction.north
+      },
+      {
+        position = {0, 0},
+        direction = defines.direction.east
+      },
+      {
+        position = {0, 0},
+        direction = defines.direction.south
+      },
+      {
+        position = {0, 0},
+        direction = defines.direction.west
+      }
+    }
+  },
+
+  connection_sprites = make_heat_pipe_pictures("__base__/graphics/entity/heat-pipe/", "heat-pipe",
+  {
+    single = { name = "straight-vertical-single", ommit_number = true },
+    straight_vertical = { variations = 6 },
+    straight_horizontal = { variations = 6 },
+    corner_right_up = { name = "corner-up-right", variations = 6 },
+    corner_left_up = { name = "corner-up-left", variations = 6 },
+    corner_right_down = { name = "corner-down-right", variations = 6 },
+    corner_left_down = { name = "corner-down-left", variations = 6 },
+    t_up = {},
+    t_down = {},
+    t_right = {},
+    t_left = {},
+    cross = { name = "t" },
+    ending_up = {},
+    ending_down = {},
+    ending_right = {},
+    ending_left = {}
+  }),
+
+  heat_glow_sprites = make_heat_pipe_pictures("__base__/graphics/entity/heat-pipe/", "heated",
+  {
+    single = { empty = true },
+    straight_vertical = { variations = 6 },
+    straight_horizontal = { variations = 6 },
+    corner_right_up = { name = "corner-up-right", variations = 6 },
+    corner_left_up = { name = "corner-up-left", variations = 6 },
+    corner_right_down = { name = "corner-down-right", variations = 6 },
+    corner_left_down = { name = "corner-down-left", variations = 6 },
+    t_up = {},
+    t_down = {},
+    t_right = {},
+    t_left = {},
+    cross = { name = "t" },
+    ending_up = {},
+    ending_down = {},
+    ending_right = {},
+    ending_left = {}
+  }, true)
+},
+
+-- 고철파이프의 끝 ------------------------------------------------------------------------------------------------------------
+
+
+
+      --  리액터의 시작-------------------------------------------------------------------------------------------------------------------------------
 {
     type = "reactor",
     name = "heat-reactor",
@@ -435,5 +572,6 @@ data:extend
       }
     }
   }
+  --  리액터의 끝-------------------------------------------------------------------------------------------------------------------------------
 }
 )
