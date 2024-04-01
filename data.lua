@@ -1,6 +1,6 @@
 require("heating")
 require("heat_silo")
-require("Hailite")
+
 
 local sounds = require("__base__.prototypes.entity.sounds")
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
@@ -24,7 +24,7 @@ for _, preset in pairs(data.raw["map-gen-presets"]["default"]) do
       end
   end
 end
-
+require("Hailite")
 local scrapauto = table.deepcopy(data.raw["autoplace-control"]["iron-ore"])
 local fossilauto = table.deepcopy(data.raw["autoplace-control"]["stone"])
 

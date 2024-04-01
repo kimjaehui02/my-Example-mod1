@@ -9,6 +9,153 @@ local sounds = require("__base__.prototypes.entity.sounds")
 data:extend
 (
   {
+    -- 빙정핵 -----------------------------------------------------------------------
+    {
+      type = "item",
+      name = "Hailite-ore",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
+      icon_size = 64,
+      icon_mipmaps = 4,
+      pictures =
+      {
+        {
+          layers =
+          {
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
+              blend_mode = "additive",
+              draw_as_light = true,
+              tint = {r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+          }
+        },
+        {
+          layers =
+          {
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-1.png",
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-1.png",
+              blend_mode = "additive",
+              draw_as_light = true,
+              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+          }
+        },
+        {
+          layers =
+          {
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-2.png",
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-2.png",
+              blend_mode = "additive",
+              draw_as_light = true,
+              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+          }
+        },
+        {
+          layers =
+          {
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-3.png",
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+            {
+              filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-3.png",
+              blend_mode = "additive",
+              draw_as_light = true,
+              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              size = 64,
+              scale = 0.25,
+              mipmap_count = 4
+            },
+          }
+        }
+      },
+      subgroup = "raw-resource",
+      order = "g[uranium-ore]",
+      stack_size = 50
+    },
+    {
+      type = "item",
+      name = "Ice-Core",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-235.png",
+      pictures =
+      {
+        layers =
+        {
+          {
+            size = 64,
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-235.png",
+            scale = 0.25,
+            mipmap_count = 4
+          },
+          {
+            draw_as_light = true,
+            blend_mode = "additive",
+            size = 64,
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-235.png",
+            scale = 0.25,
+            tint = {r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+            mipmap_count = 4
+          }
+        }
+      },
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "intermediate-product",
+      order = "r[uranium-235]",
+      stack_size = 100
+    },
+    {
+      type = "item",
+      name = "perennial-ice",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "intermediate-product",
+      order = "r[uranium-238]",
+      stack_size = 100
+    },
+    {
+      type = "item",
+      name = "centrifuge",
+      icon = "__base__/graphics/icons/centrifuge.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "production-machine",
+      order = "g[centrifuge]",
+      place_result = "centrifuge",
+      stack_size = 50
+    },
+
+
+    -- 빙정핵 -----------------------------------------------------------------------
+    
     -- 얼심분리기 -----------------------------------------------------------------------
     {
       type = "item",
