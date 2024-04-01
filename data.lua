@@ -1,5 +1,6 @@
 require("heating")
 require("heat_silo")
+require("Hailite")
 
 local sounds = require("__base__.prototypes.entity.sounds")
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
