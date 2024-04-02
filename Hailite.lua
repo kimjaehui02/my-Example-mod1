@@ -3,13 +3,155 @@
 
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
-
+local resource_autoplace = require("resource-autoplace")
 
 
 data:extend
 (
   {
     -- 빙정핵 -----------------------------------------------------------------------
+    {
+      type = "recipe",
+      name = "Hailite-enrichment-process",
+      energy_required = 60,
+      enabled = true,
+      category = "Hailite-crafting",
+      ingredients = {{"Ice-Core", 40}, {"perennial-ice", 5}},
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/kovarex-enrichment-process.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "intermediate-product",
+      order = "r[uranium-processing]-c[kovarex-enrichment-process]",
+      main_product = "",
+      results = {{"Ice-Core", 41}, {"perennial-ice", 2}},
+      allow_decomposition = false
+    },
+    {
+      type = "recipe",
+      name = "Hailite-processing",
+      energy_required = 12,
+      enabled = true,
+      category = "Hailite-crafting",
+      ingredients = {{"Hailite-ore", 10}},
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-processing.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "raw-material",
+      order = "k[uranium-processing]", -- k ordering so it shows up after explosives which is j ordering
+      results =
+      {
+        {
+          name = "Ice-Core",
+          probability = 0.7,
+          amount = 1
+        },
+        {
+          name = "perennial-ice",
+          probability = 0.993,
+          amount = 1
+        }
+      }
+    },
+
+
+    {
+      type = "resource-category",
+      name = "Hailite"
+    },
+    {
+      type = "autoplace-control",
+      name = "Hailite-ore",
+      localised_name = {"", "[entity=Hailite-ore] ", {"entity-name.Hailite-ore"}},
+      richness = true,
+      order = "b-e",
+      category = "resource"
+    },
+    {
+      type = "resource",
+      name = "Hailite-ore",
+      category = "Hailite",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
+      icon_size = 64,
+      icon_mipmaps = 4,
+      flags = {"placeable-neutral"},
+      order="a-b-e",
+      tree_removal_probability = 0.7,
+      tree_removal_max_distance = 32 * 32,
+      walking_sound = sounds.ore,
+      minable =
+      {
+        mining_particle = "stone-particle",
+        mining_time = 2,
+        result = "Hailite-ore"
+      },
+      collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
+      selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
+      autoplace = resource_autoplace.resource_autoplace_settings
+      {
+        name = "Hailite-ore",
+        order = "c",
+        base_density = 0.9,
+        base_spots_per_km2 = 1.25,
+        has_starting_area_placement = true,
+        random_spot_size_minimum = 2,
+        random_spot_size_maximum = 4,
+        regular_rq_factor_multiplier = 1
+      },
+      stage_counts = {10000, 6330, 3670, 1930, 870, 270, 100, 50},
+      stages =
+      {
+        sheet =
+        {
+          filename = "__base__/graphics/entity/uranium-ore/uranium-ore.png",
+          priority = "extra-high",
+          width = 64,
+          height = 64,
+          frame_count = 8,
+          variation_count = 8,
+          hr_version =
+          {
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/hr-uranium-ore.png",
+            priority = "extra-high",
+            width = 128,
+            height = 128,
+            frame_count = 8,
+            variation_count = 8,
+            scale = 0.5
+          }
+        }
+      },
+      stages_effect =
+      {
+        sheet =
+        {
+          filename = "__base__/graphics/entity/uranium-ore/uranium-ore-glow.png",
+          priority = "extra-high",
+          width = 64,
+          height = 64,
+          frame_count = 8,
+          variation_count = 8,
+          blend_mode = "additive",
+          flags = {"light"},
+          hr_version =
+          {
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/hr-uranium-ore-glow2.png",
+            priority = "extra-high",
+            width = 128,
+            height = 128,
+            frame_count = 8,
+            variation_count = 8,
+            scale = 0.5,
+            blend_mode = "additive",
+            flags = {"light"}
+          }
+        }
+      },
+      effect_animation_period = 5,
+      effect_animation_period_deviation = 1,
+      effect_darkness_multiplier = 3.6,
+      min_effect_alpha = 0.2,
+      max_effect_alpha = 0.3,
+      mining_visualisation_tint = {r = 0.814, g = 1.000, b = 0.499, a = 1.000}, -- #cfff7fff
+      map_color = {0.35, 0.8, 0.8}
+    },
     {
       type = "item",
       name = "Hailite-ore",
@@ -51,7 +193,7 @@ data:extend
               filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-1.png",
               blend_mode = "additive",
               draw_as_light = true,
-              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              tint = { r = 0.6, g = 0.6, b = 0.6, a = 0.6},
               size = 64,
               scale = 0.25,
               mipmap_count = 4
@@ -71,7 +213,7 @@ data:extend
               filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-2.png",
               blend_mode = "additive",
               draw_as_light = true,
-              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              tint = { r = 0.6, g = 0.6, b = 0.6, a = 0.6},
               size = 64,
               scale = 0.25,
               mipmap_count = 4
@@ -91,7 +233,7 @@ data:extend
               filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore-3.png",
               blend_mode = "additive",
               draw_as_light = true,
-              tint = { r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+              tint = { r = 0.6, g = 0.6, b = 0.6, a = 0.6},
               size = 64,
               scale = 0.25,
               mipmap_count = 4
@@ -123,7 +265,7 @@ data:extend
             size = 64,
             filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-235.png",
             scale = 0.25,
-            tint = {r = 0.3, g = 0.3, b = 0.3, a = 0.3},
+            tint = {r = 0.6, g = 0.6, b = 0.6, a = 0.6},
             mipmap_count = 4
           }
         }
@@ -157,6 +299,10 @@ data:extend
     -- 빙정핵 -----------------------------------------------------------------------
     
     -- 얼심분리기 -----------------------------------------------------------------------
+  {
+    type = "recipe-category",
+    name = "Hailite-crafting"
+  },
     {
       type = "item",
       name = "Hailite-centrifuge",
@@ -346,7 +492,7 @@ data:extend
         {
           effect = "uranium-glow",
           fadeout = true,
-          light = {intensity = 0.2, size = 9.9, shift = {0.0, 0.0}, color = {r = 0.0, g = 0.0, b = 1.0}}
+          light = {intensity = 0.2, size = 9.9, shift = {0.0, 0.0}, color = {r = 0.2, g = 0.2, b = 1.0}}
         },
         {
           effect = "uranium-glow",
@@ -456,7 +602,7 @@ data:extend
         --idle_sound = { filename = "__base__/sound/idle1.ogg", volume = 0.3 }
       },
       crafting_speed = 1,
-      crafting_categories = {"centrifuging"},
+      crafting_categories = {"Hailite-crafting"},
       energy_source =
       {
         type = "electric",

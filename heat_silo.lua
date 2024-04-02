@@ -683,6 +683,22 @@ data:extend
 
 
       --  리액터의 시작-------------------------------------------------------------------------------------------------------------------------------
+
+      {
+        type = "recipe",
+        name = "nuclear-reactor",
+        energy_required = 8,
+        enabled = false,
+        ingredients =
+        {
+          {"concrete", 500},
+          {"steel-plate", 500},
+          {"advanced-circuit", 500},
+          {"copper-plate", 500}
+        },
+        result = "nuclear-reactor",
+        requester_paste_multiplier = 1
+      },
 {
     type = "reactor",
     name = "heat-reactor",

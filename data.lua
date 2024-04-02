@@ -39,12 +39,12 @@ local scrap = table.deepcopy(data.raw["resource"]["iron-ore"])
 scrap.stages.sheet.filename = "__my Example-mod1__/graphics/entity/iron-ore2.png"
 scrap.stages.sheet.hr_version.filename = "__my Example-mod1__/graphics/entity/iron-ore2hr.png"
 scrap.name = "Scrap2-landfill"
-
+scrap.map_color= {0.6, 0.6, 0}
 
 fossil2.stages.sheet.filename = "__my Example-mod1__/graphics/entity/fossil.png"
 fossil2.stages.sheet.hr_version.filename = "__my Example-mod1__/graphics/entity/fossilhr.png"
 fossil2.name = "fossil-landfill"
-
+fossil2.map_color= {0.15, 0, 0}
 
 data:extend(
 {

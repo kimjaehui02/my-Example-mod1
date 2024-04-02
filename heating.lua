@@ -7,6 +7,18 @@ require ("__base__.prototypes.entity.pipecovers")
   data:extend(
 {
   {
+    type = "recipe",
+    name = "heat-mining-drill",
+    energy_required = 2,
+    ingredients =
+    {
+      {"electronic-circuit", 3},
+      {"iron-gear-wheel", 5},
+      {"iron-plate", 10}
+    },
+    result = "heat-mining-drill"
+  },
+  {
     type = "item",
     name = "heat-mining-drill",
     icon = "__base__/graphics/icons/electric-mining-drill.png",
@@ -24,7 +36,7 @@ require ("__base__.prototypes.entity.pipecovers")
     flags = {"placeable-neutral", "player-creation"},
     minable = {mining_time = 0.3, result = "heat-mining-drill"},
     max_health = 300,
-    resource_categories = {"basic-solid"},
+    resource_categories = {"basic-solid", "Hailite"},
     corpse = "electric-mining-drill-remnants",
     dying_explosion = "electric-mining-drill-explosion",
     collision_box = {{ -1.4, -1.4}, {1.4, 1.4}},
