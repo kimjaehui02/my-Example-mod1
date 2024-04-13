@@ -58,44 +58,17 @@ local new_recipe
 
 for _, recipe in pairs(data.raw["recipe"]) do
 
-
---   if data.raw["item"][recipe.name or ""] or data.raw["item"][recipe.result or ""] or (recipe.results and recipe.results[1] and data.raw["item"][recipe.results[1].name or ""]) then
---     -- recipe.name, recipe.result, recipe.results[1]이 모두 nil일 때 스킵
---     goto continue
--- end
-if (data.raw["item"][recipe.name or recipe.result or recipe.results[1].name] ==nil) then
-  goto continue
+  if data.raw["item"][recipe.name or ""] or data.raw["item"][recipe.result or ""] or (recipe.results and recipe.results[1] and data.raw["item"][recipe.results[1].name or ""]) then
+    -- recipe.name, recipe.result, recipe.results[1]이 모두 nil일 때 스킵
+    goto continue
 end
-
-
--- if (recipe.results and recipe.results[1] and data.raw["item"][recipe.results[1].name or ""]) then
---   goto continue
--- end
-
---   local mainString = recipe.name
---   local subString = "barrel"
---   local subString2 = "empty"
---   local subString3 = "fill"
-  
---   if string.find(mainString, subString) then
---     if string.find(mainString, subString2) then
---       goto continue
---   end
---   if string.find(mainString, subString3) then
---     goto continue
--- end
---   end
 
 
   if not recipe.category or recipe.category == "crafting" or recipe.category == "advanced-crafting"  or  recipe.category == "crafting-with-fluid"  then
     local new_recipe_name = recipe.name .. "-scrapping"
 
-    
 
     if recipe.normal then
-
-
-
       new_recipe = 
       {
         type = "recipe",
@@ -103,7 +76,7 @@ end
         category = "scrapping",
         energy_required = 0.5,
         enabled = true,
-        hidden = false,
+        hidden = true,
         ingredients =  {{
           name = recipe.name,
           probability = 1,
@@ -114,9 +87,7 @@ end
         icon_size = 64, icon_mipmaps = 4,
         subgroup = "raw-material",
         order = "k[uranium-processing]", -- k ordering so it shows up after explosives which is j ordering
-        results =
-        {
-          {
+        results ={{
           name = recipe.name or recipe.result or recipe.results[1].name,
           probability = 0.1,
           amount = 1
@@ -169,7 +140,7 @@ end
         category = "scrapping",
         energy_required = 0.5,
         enabled = true,
-        hidden = false,
+        hidden = true,
         ingredients =  {{
           name = recipe.name,
           probability = 1,
@@ -181,9 +152,7 @@ end
         subgroup = "raw-material",
         order = "k[uranium-processing]", -- k ordering so it shows up after explosives which is j ordering
         -- results =recipe.ingredients
-        results =
-        {
-          {
+        results ={{
           name = recipe.name or recipe.result or recipe.results[1],
           probability = 0.1,
           amount = 1

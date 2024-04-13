@@ -702,6 +702,7 @@ data:extend
 {
     type = "reactor",
     name = "heat-reactor",
+    scale_energy_usage = true,
     icon  = "__my Example-mod1__/graphics/entity/heat-silo/rocket-silo.png",
     icon_size = 64, icon_mipmaps = 4,
     flags = {"placeable-neutral", "player-creation"},
@@ -869,7 +870,7 @@ data:extend
 
     heat_buffer =
     {
-      max_temperature = 10000,
+      max_temperature = 1000,
       specific_heat = "10MJ",
       max_transfer = "10GW",
       minimum_glow_temperature = 350,
