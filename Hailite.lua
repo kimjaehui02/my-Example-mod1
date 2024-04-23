@@ -281,14 +281,79 @@ data:extend
     },
     {
       type = "item",
-      name = "perennial-ice",
+      name = "perennial-iced",
       icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
       icon_size = 64, icon_mipmaps = 4,
-      fuel_category = "frost",
+      fuel_category = "chemical",--"frost",
       fuel_value = "4MJ",
       subgroup = "intermediate-product",
       order = "r[uranium-238]",
+      
       stack_size = 100
+    },
+    {
+      type = "item",
+      name = "perennial-ice",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
+      icon_size = 64, icon_mipmaps = 4,
+      pictures =
+      {
+        layers =
+        {
+          {
+            size = 64,
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
+            scale = 0.25,
+            mipmap_count = 4
+          },
+          {
+            draw_as_light = true,
+            flags = {"light"},
+            size = 64,
+            filename = "__base__/graphics/icons/uranium-fuel-cell-light.png",
+            scale = 0.25,
+            mipmap_count = 4
+          }
+        }
+      },
+      subgroup = "intermediate-product",
+      order = "r[uranium-processing]-a[uranium-fuel-cell]",
+      fuel_category = "chemical",--"frost",
+      burnt_result = "perennial-ice2",
+      fuel_value = "4MJ",
+      stack_size = 50
+    },
+    {
+      type = "item",
+      name = "perennial-ice2",
+      icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
+      icon_size = 64, icon_mipmaps = 4,
+      pictures =
+      {
+        layers =
+        {
+          {
+            size = 64,
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
+            scale = 0.25,
+            mipmap_count = 4
+          },
+          {
+            draw_as_light = true,
+            flags = {"light"},
+            size = 64,
+            filename = "__base__/graphics/icons/uranium-fuel-cell-light.png",
+            scale = 0.25,
+            mipmap_count = 4
+          }
+        }
+      },
+      subgroup = "intermediate-product",
+      order = "r[uranium-processing]-a[uranium-fuel-cell]",
+      fuel_category = "frost",--"frost",
+      -- burnt_result = "perennial-ice",
+      fuel_value = "4MJ",
+      stack_size = 50
     },
     {
       type = "item",
