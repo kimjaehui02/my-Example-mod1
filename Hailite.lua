@@ -84,7 +84,23 @@ data:extend
       {
         mining_particle = "stone-particle",
         mining_time = 2,
-        result = "Hailite-ore"
+        results = 
+        {
+          {
+            name = "Hailite-ore",
+            amount = 1
+          }
+          ,
+          {
+            name = "coal",
+            amount = 1
+          },
+          {
+            type = "fluid",
+            name = "crude-oil",
+            amount = 1000
+          }
+        }
       },
       collision_box = {{-0.1, -0.1}, {0.1, 0.1}},
       selection_box = {{-0.5, -0.5}, {0.5, 0.5}},

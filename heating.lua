@@ -116,21 +116,21 @@ require ("__base__.prototypes.entity.pipecovers")
         }
       },
     },
-    input_fluid_box =
-    {
-      production_type = "input-output",
-      pipe_picture = assembler2pipepictures(),
-      pipe_covers = pipecoverspictures(),
-      base_area = 1,
-      height = 2,
-      base_level = -1,
-      pipe_connections =
-      {
-        { position = {-2, 0} },
-        { position = {2, 0} },
-        { position = {0, 2} }
-      }
-    },
+    -- output_fluid_box =
+    -- {
+    --   base_area = 10,
+    --   base_level = 1,
+    --   production_type = "input-output",
+    --   pipe_picture = assembler2pipepictures(),
+    --   pipe_covers = pipecoverspictures(),
+    --   height = 2,
+    --   pipe_connections =
+    --   {
+    --     { position = {-2, 0} },
+    --     { position = {2, 0} },
+    --     { position = {0, 2} }
+    --   }
+    -- },
     energy_usage = "500kW",
     energy_consumption = "10MW",
     energy_source =
