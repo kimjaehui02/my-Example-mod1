@@ -27,6 +27,8 @@ end
 
 require("Hailite")
 
+
+
 local scrapauto = table.deepcopy(data.raw["autoplace-control"]["iron-ore"])
 local fossilauto = table.deepcopy(data.raw["autoplace-control"]["stone"])
 
