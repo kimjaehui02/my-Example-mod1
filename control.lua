@@ -1,9 +1,11 @@
---컨트롤 루아
---control.lua
+-- Crystal Factory Extended - Control Script
 
 script.on_init(function()
-    if not remote.interfaces["freeplay"] then return end
-    local created_items = remote.call("freeplay", "get_created_items")
-    created_items["heat-reactor"] = 1
-    remote.call("freeplay", "set_created_items", created_items)
-    end)
+    log("Crystal Factory Extended initialized")
+end)
+
+script.on_configuration_changed(function(data)
+    if data.mod_changes and data.mod_changes["my Example-mod1"] then
+        log("Crystal Factory Extended configuration changed")
+    end
+end)
