@@ -3,6 +3,9 @@
 
 local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")
 
+-- Load arcana map generation (circular island)
+require("arcana-map-gen")
+
 -- 행성 정의
 data:extend({
     {
@@ -33,10 +36,13 @@ data:extend({
         solar_power_in_space = 500,
         pollutant_type = nil,  -- 공해 없음
         
-        -- 맵 생성 설정 (작은 행성)
+        -- 맵 생성 설정 (작은 원형 섬 - 세리스 스타일)
         map_gen_settings = {
-            width = 2048,  -- 작은 크기 (기본은 무제한)
-            height = 2048,
+            terrain_segmentation = 1,
+            water = 10,  -- 물 많이!
+            width = 32 * 30,  -- 960 타일
+            height = 32 * 30,  -- 960 타일
+            starting_area_size = 0.5,  -- 아주 작은 시작 지역
             autoplace_controls = {
                 ["iron-ore"] = {
                     frequency = 2,
@@ -62,6 +68,11 @@ data:extend({
                     frequency = 0.8,
                     size = 2,
                     richness = 4
+                },
+                ["crystal-essence"] = {
+                    frequency = 0.6,
+                    size = 1.5,
+                    richness = 3
                 }
             },
             autoplace_settings = {
@@ -71,18 +82,22 @@ data:extend({
                         ["copper-ore"] = {},
                         ["stone"] = {},
                         ["coal"] = {},
-                        ["raw-crystal-ore"] = {}
+                        ["raw-crystal-ore"] = {},
+                        ["crystal-essence"] = {}
                     }
                 }
             },
             default_enable_all_autoplace_controls = false,
             property_expression_names = {
-                elevation = "0_17-elevation",
+                elevation = "arcana_surface",  -- 원형 지형!
                 temperature = "temperature_basic",
                 moisture = "moisture_basic",
                 aux = "aux_basic",
-                cliffiness = "cliffiness_basic"
+                cliffiness = "cliffiness_basic",
+                ["tile:water:probability"] = "arcana_water"  -- 반경 밖은 물!
             },
+            starting_area = "none",  -- 시작 지역 없음
+            water = 10,  -- 물 많이
             cliff_settings = {
                 name = "cliff",
                 cliff_elevation_0 = 10,

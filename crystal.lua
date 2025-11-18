@@ -26,7 +26,7 @@ data:extend({
     {
         type = "item",
         name = "raw-crystal",
-        icon = "__base__/graphics/icons/uranium-ore.png",
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
         icon_size = 64,
         subgroup = "raw-resource",  -- 자원 그룹으로 변경
         order = "h[raw-crystal]",
@@ -37,7 +37,7 @@ data:extend({
     {
         type = "item",
         name = "refined-crystal",
-        icon = "__base__/graphics/icons/uranium-235.png",
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-238.png",
         icon_size = 64,
         subgroup = "crystal-items",
         order = "b[refined-crystal]",
@@ -48,7 +48,7 @@ data:extend({
     {
         type = "item",
         name = "pure-crystal",
-        icon = "__base__/graphics/icons/rocket-fuel.png",
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-235.png",
         icon_size = 64,
         subgroup = "crystal-items",
         order = "c[pure-crystal]",
@@ -88,7 +88,8 @@ data:extend({
     {
         type = "resource",
         name = "raw-crystal-ore",
-        icon = "__base__/graphics/icons/uranium-ore.png",
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-ore.png",
+        icon_size = 64,
         flags = {"placeable-neutral"},
         order = "a-b-f",
         subgroup = "raw-resource",
@@ -115,7 +116,7 @@ data:extend({
         stage_counts = {10000, 6330, 3670, 1930, 870, 270, 100, 50},
         stages = {
             sheet = {
-                filename = "__base__/graphics/entity/uranium-ore/uranium-ore.png",
+                filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/hr-uranium-ore.png",
                 priority = "extra-high",
                 width = 128,
                 height = 128,
@@ -123,6 +124,18 @@ data:extend({
                 variation_count = 8,
                 scale = 0.5
             }
+        },
+        -- 빛나는 효과 (glow2 버전!)
+        glow = {
+            filename = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/hr-uranium-ore-glow2.png",
+            priority = "extra-high",
+            width = 128,
+            height = 128,
+            frame_count = 8,
+            variation_count = 8,
+            scale = 0.5,
+            blend_mode = "additive",
+            flags = {"light"}
         },
         map_color = {0.5, 0.9, 1.0},  -- 청록색
         mining_visualisation_tint = {r = 0.5, g = 0.9, b = 1.0, a = 1.0}
@@ -246,6 +259,8 @@ data:extend({
         name = "refined-crystal",
         category = "crystal-refining",
         enabled = false,
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-processing.png",
+        icon_size = 64,
         ingredients = {
             {type = "item", name = "raw-crystal", amount = 2}
         },
@@ -259,6 +274,8 @@ data:extend({
         name = "pure-crystal",
         category = "crystal-refining",
         enabled = false,
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/kovarex-enrichment-process.png",
+        icon_size = 64,
         ingredients = {
             {type = "item", name = "refined-crystal", amount = 3}
         },
@@ -273,8 +290,8 @@ data:extend({
     {
         type = "technology",
         name = "crystal-processing",
-        icon = "__base__/graphics/technology/production-science-pack.png",
-        icon_size = 256,
+        icon = "__my Example-mod1__/graphics/entity/Hailite-tech/Hailite-ore/uranium-processing.png",
+        icon_size = 64,
         effects = {
             {type = "unlock-recipe", recipe = "crystal-refinery"},
             {type = "unlock-recipe", recipe = "refined-crystal"},
