@@ -19,6 +19,15 @@ require("crystal-chemical-plant")
 -- Load crystal heat pipe
 require("crystal-heat-pipe")
 
+-- Load crystal ocean tile (Arcana exclusive - Aquilo style)
+require("crystal-ocean-tile")
+
+-- Load crystal resource generator (Arcana exclusive)
+require("crystal-resource-generator")
+
+-- Load crystal farming system (Gleba style)
+require("crystal-farming")
+
 -- Load Arcana planet (if Space Age is present)
 if mods["space-age"] then
     require("planet-arcana")

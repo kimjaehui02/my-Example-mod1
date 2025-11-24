@@ -39,7 +39,7 @@ data:extend({
         -- 맵 생성 설정 (작은 원형 섬 - 세리스 스타일)
         map_gen_settings = {
             terrain_segmentation = 1,
-            water = 10,  -- 물 많이!
+            water = 0,  -- autoplace_settings에서 water 직접 관리
             width = 32 * 30,  -- 960 타일
             height = 32 * 30,  -- 960 타일
             starting_area_size = 0.5,  -- 아주 작은 시작 지역
@@ -76,28 +76,57 @@ data:extend({
                 }
             },
             autoplace_settings = {
-                entity = {
+                tile = {
+                    treat_missing_as_default = false,
                     settings = {
-                        ["iron-ore"] = {},
-                        ["copper-ore"] = {},
-                        ["stone"] = {},
-                        ["coal"] = {},
-                        ["raw-crystal-ore"] = {},
-                        ["crystal-essence"] = {}
+                        ["grass-1"] = {
+                            -- elevation (arcana_surface)이 0 이상일 때만 땅 생성
+                            probability_expression = "if(arcana_surface >= 0, 1.0, 0)",
+                            richness_expression = 1
+                        },
+                        ["water"] = {
+                            -- elevation (arcana_surface)이 0 미만일 때만 물 생성
+                            probability_expression = "if(arcana_surface < 0, 1.0, 0)",
+                            richness_expression = 1
+                        }
+                    }
+                },
+                entity = {
+                    treat_missing_as_default = false,
+                    settings = {
+                        ["iron-ore"] = {
+                            -- water 제외, 땅 타일만 허용
+                            tile_restriction = {"grass-1", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7", "sand-1", "sand-2", "sand-3"}
+                        },
+                        ["copper-ore"] = {
+                            tile_restriction = {"grass-1", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7", "sand-1", "sand-2", "sand-3"}
+                        },
+                        ["stone"] = {
+                            tile_restriction = {"grass-1", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7", "sand-1", "sand-2", "sand-3"}
+                        },
+                        ["coal"] = {
+                            tile_restriction = {"grass-1", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7", "sand-1", "sand-2", "sand-3"}
+                        },
+                        ["raw-crystal-ore"] = {
+                            tile_restriction = {"grass-1", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7", "sand-1", "sand-2", "sand-3"}
+                        },
+                        ["crystal-essence"] = {
+                            -- water 타일 위에만 생성
+                            tile_restriction = {"water"}
+                        }
                     }
                 }
             },
             default_enable_all_autoplace_controls = false,
             property_expression_names = {
-                elevation = "arcana_surface",  -- 원형 지형!
+                elevation = "arcana_surface",  -- 원형 지형! 반경 밖은 낮음 (물)
                 temperature = "temperature_basic",
                 moisture = "moisture_basic",
                 aux = "aux_basic",
                 cliffiness = "cliffiness_basic",
-                ["tile:water:probability"] = "arcana_water"  -- 반경 밖은 물!
             },
-            starting_area = "none",  -- 시작 지역 없음
-            water = 10,  -- 물 많이
+            starting_area = "normal",  -- 시작 지역 있음 (자원 보장)
+            water = 0,  -- 물 없음 (크리스탈 공허 사용)
             cliff_settings = {
                 name = "cliff",
                 cliff_elevation_0 = 10,

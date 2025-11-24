@@ -1,7 +1,7 @@
 -- Arcana Map Generation - Small Crystal Moon
--- 작은 크리스탈 달 지형 생성
+-- 세리스 모드의 맵 생성 방식을 정확히 복사
 
-local ARCANA_RADIUS = 150  -- 반경 150타일
+local ARCANA_RADIUS = 150
 
 -- Noise expressions for circular terrain
 data:extend({
@@ -11,21 +11,40 @@ data:extend({
         expression = tostring(ARCANA_RADIUS),
     },
     {
+        -- 맵 중심(0,0)에서의 거리 계산
         type = "noise-expression",
         name = "arcana_map_distance",
-        expression = "(x^2 + y^2)^(1/2)",
+        expression = "sqrt(x * x + y * y)",
     },
     {
+        -- 섬 표면 높이: 반경 안은 양수, 밖은 음수 (elevation 기반)
+        -- 이게 property_expression_names의 elevation로 사용됨
+        -- 중앙(0,0)에서 거리가 150보다 작으면 양수, 크면 음수
         type = "noise-expression",
         name = "arcana_surface",
-        expression = "(arcana_radius - arcana_map_distance) / 20",
+        expression = "(arcana_radius - arcana_map_distance) / 30",
     },
     {
+        -- 땅 확률: elevation (arcana_surface)이 0 이상일 때만 생성
+        -- 타일 autoplace는 이 probability_expression을 평가함
+        -- 중앙 근처(거리 < 150)에서만 땅 생성
         type = "noise-expression",
-        name = "arcana_water",
-        expression = "max(0, (arcana_map_distance - arcana_radius + 5) * 10)",
+        name = "arcana_land",
+        expression = "if(arcana_surface >= 0, 1.0, 0)",
+    },
+    {
+        -- 물 확률: elevation (arcana_surface)이 0 미만일 때만 생성
+        -- 땅이 아닌 곳(거리 >= 150)에만 물 생성
+        type = "noise-expression",
+        name = "arcana_void",
+        expression = "if(arcana_surface < 0, 1.0, 0)",
+    },
+    {
+        -- 시작 지역 자원 보장 (중앙 근처에 강제 생성)
+        type = "noise-expression",
+        name = "arcana_starting_area",
+        expression = "max(0, 10 - (arcana_map_distance / 20))",
     },
 })
 
-log("Arcana map generation expressions loaded - Radius: " .. ARCANA_RADIUS)
-
+log("Arcana map generation expressions loaded")

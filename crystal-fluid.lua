@@ -59,6 +59,7 @@ data:extend({
         collision_box = {{-1.4, -1.4}, {1.4, 1.4}},
         selection_box = {{-0.5, -0.5}, {0.5, 0.5}},
         -- Factorio 2.0 autoplace 시스템
+        -- crystal-ocean 타일 위에 생성되도록 설정 (아퀼로의 암모니아 바다처럼)
         autoplace = resource_autoplace.resource_autoplace_settings({
             name = "crystal-essence",
             order = "c",  -- 석유 이후
@@ -69,6 +70,7 @@ data:extend({
             random_spot_size_maximum = 2,
             regular_rq_factor_multiplier = 1.0
         }),
+        map_color = {0.5, 0.9, 1.0},  -- 청록색
         stage_counts = {0},
         stages = {
             sheet = {
