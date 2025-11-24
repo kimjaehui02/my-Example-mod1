@@ -28,6 +28,14 @@ require("crystal-resource-generator")
 -- Load crystal farming system (Gleba style)
 require("crystal-farming")
 
+-- Load short train system
+require("crystal-train")
+
+-- Load long range elevated rail system (wider pylon spacing)
+if mods["elevated-rails"] then
+    require("crystal-elevated-rail")
+end
+
 -- Load Arcana planet (if Space Age is present)
 if mods["space-age"] then
     require("planet-arcana")

@@ -299,10 +299,7 @@ data:extend({
             {type = "unlock-recipe", recipe = "crystal-resonator"},
             {type = "unlock-recipe", recipe = "crystal-speed-module"},
             {type = "unlock-recipe", recipe = "crystal-productivity-module"},
-            {type = "unlock-recipe", recipe = "crystal-efficiency-module"},
-            {type = "unlock-recipe", recipe = "crystal-seed"},
-            {type = "unlock-recipe", recipe = "grow-crystal"},
-            {type = "unlock-recipe", recipe = "crystal-farm"}
+            {type = "unlock-recipe", recipe = "crystal-efficiency-module"}
         },
         prerequisites = {"steel-processing", "electronics"},
         unit = {
